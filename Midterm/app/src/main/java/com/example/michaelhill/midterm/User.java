@@ -7,7 +7,7 @@ import java.util.List;
  */
 public class User {
 
-    private String mName;
+    public String mName;
     private String mPassword;
 
     public User(){
