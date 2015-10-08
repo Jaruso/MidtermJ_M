@@ -30,9 +30,8 @@
         android:layout_height="wrap_content"
         android:inputType="textNoSuggestions"
         android:layout_above="@+id/PasswordText"
-        android:layout_toRightOf="@+id/textView2"
-        android:layout_toEndOf="@+id/textView2"
-        android:layout_marginBottom="10dp" />
+        android:layout_alignLeft="@+id/PasswordText"
+        android:layout_alignStart="@+id/PasswordText" />
 
     <TextView
         android:text="PASSWORD:"
@@ -50,15 +49,36 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_toLeftOf="@+id/SignInButton"
-        android:layout_toStartOf="@+id/SignInButton" />
+        android:layout_alignLeft="@+id/textView"
+        android:layout_alignStart="@+id/textView"
+        android:layout_marginLeft="21dp"
+        android:layout_marginStart="21dp" />
+
+    <TextView
+        android:text="Confirm:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView3"
+        android:layout_below="@+id/PasswordText"
+        android:layout_toLeftOf="@+id/PasswordText"
+        android:layout_toStartOf="@+id/PasswordText" />
+
+    <EditText
+        android:id="@+id/ConfirmPassword"
+        android:text="Password"
+        android:inputType="textPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView2"
+        android:layout_alignLeft="@+id/PasswordText"
+        android:layout_alignStart="@+id/PasswordText" />
 
     <Button
         android:id="@+id/SignInButton"
-        android:text="Confirm"
+        android:text="Confirm and Sign In"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="ConfirmSignIn"
+        android:onClick="ConfirmAndSignIn"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />

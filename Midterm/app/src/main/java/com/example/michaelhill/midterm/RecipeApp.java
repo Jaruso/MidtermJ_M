@@ -1,5 +1,6 @@
 package com.example.michaelhill.midterm;
 
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -10,22 +11,27 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 import java.util.jar.Attributes;
 
-public class RecipeApp extends AppCompatActivity {
+public class RecipeApp extends AppCompatActivity
+{
     String mUsername;
     String mPassword;
+    boolean mPasswordCheck;
 
     List<Recipe> mRecipes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_recipe_app);
+        setContentView(R.layout.welcome_page);
 
-        InitPage1();
+        mUsername = "";
+        mPassword = "";
+        mPasswordCheck = false;
     }
 
     @Override
@@ -51,17 +57,24 @@ public class RecipeApp extends AppCompatActivity {
     }
 
     //WELCOME PAGE------------------------------------------------------------------------------------------------------------------
-    private void InitPage1()
-    {
+    public void SignIn(View view) {
+        setContentView(R.layout.activity_recipe_app);
+        InitPage1();
+    }
+
+    public void SignUp(View view) {
+        setContentView(R.layout.sing_up_page);
+        InitPage3();
+    }
+
+    //SIGN-IN PAGE-------------------------------------------------------------------------------------------------------------------
+    private void InitPage1() {
         final EditText usernameField = (EditText) findViewById(R.id.UsernameText);
-        usernameField.setOnEditorActionListener(new TextView.OnEditorActionListener()
-        {
+        usernameField.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event)
-            {
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 boolean handled = false;
-                if (actionId == EditorInfo.IME_ACTION_SEND)
-                {
+                if (actionId == EditorInfo.IME_ACTION_SEND) {
                     GetText(usernameField, 0);
 
                     handled = true;
@@ -72,15 +85,19 @@ public class RecipeApp extends AppCompatActivity {
         });
 
         final EditText passwordField = (EditText) findViewById(R.id.PasswordText);
-        passwordField.setOnEditorActionListener(new TextView.OnEditorActionListener()
-        {
+        passwordField.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event)
-            {
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 boolean handled = false;
                 if (actionId == EditorInfo.IME_ACTION_NEXT)
                 {
-                    GetText(passwordField, 1);
+                    if(mPassword != "")
+                    {
+                        if(mPassword == passwordField.getText().toString())
+                            mPasswordCheck = true;
+                    }
+                    else
+                        GetText(passwordField, 1);
 
                     handled = true;
                 }
@@ -90,10 +107,8 @@ public class RecipeApp extends AppCompatActivity {
         });
     }
 
-    private void GetText(EditText toUse, int fieldType)
-    {
-        switch (fieldType)
-        {
+    private void GetText(EditText toUse, int fieldType) {
+        switch (fieldType) {
             case 0:
                 mUsername = toUse.getText().toString();
                 break;
@@ -103,11 +118,84 @@ public class RecipeApp extends AppCompatActivity {
         }
     }
 
-    public void ConfirmSignIn(View view)
-    {
+    public void ConfirmSignIn(View view) {
         setContentView(R.layout.recepies_page);
     }
 
+    //SIGN-UP PAGE------------------------------------------------------------------------------------------------------------------
+    private void InitPage3()
+    {
+        final EditText usernameField = (EditText) findViewById(R.id.UsernameText);
+        usernameField.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                boolean handled = false;
+                if (actionId == EditorInfo.IME_ACTION_SEND) {
+                    GetText(usernameField, 0);
+
+                    handled = true;
+                }
+
+                return handled;
+            }
+        });
+
+        final EditText passwordField = (EditText) findViewById(R.id.PasswordText);
+        passwordField.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                boolean handled = false;
+                if (actionId == EditorInfo.IME_ACTION_NEXT)
+                {
+                    if(mPassword != "")
+                    {
+                        if(mPassword == passwordField.getText().toString())
+                            mPasswordCheck = true;
+                    }
+                    else
+                        GetText(passwordField, 1);
+
+                    handled = true;
+                }
+
+                return handled;
+            }
+        });
+
+        final EditText confirmField = (EditText) findViewById(R.id.ConfirmPassword);
+        confirmField.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                boolean handled = false;
+                if (actionId == EditorInfo.IME_ACTION_NEXT)
+                {
+                    if (mPassword != "") {
+                        if (mPassword == confirmField.getText().toString())
+                            mPasswordCheck = true;
+                    } else
+                        GetText(confirmField, 2);
+
+                    handled = true;
+                }
+
+                return handled;
+            }
+        });
+    }
+
+    public void ConfirmAndSignIn(View view)
+    {
+        if(mPasswordCheck)
+        {
+            setContentView(R.layout.activity_recipe_app);
+            InitPage1();
+        }
+        else
+        {
+            Toast toast = Toast.makeText(getApplicationContext(), "Passwords don't match", Toast.LENGTH_LONG);
+            toast.show();
+        }
+    }
     //RECIPES PAGE------------------------------------------------------------------------------------------------------------------
     private void InitPage2()
     {
@@ -118,7 +206,8 @@ public class RecipeApp extends AppCompatActivity {
         {
             myTextViews = new TextView[N]; // create an empty array;
 
-            for (int i = 0; i < N; i++) {
+            for (int i = 0; i < N; i++)
+            {
                 // create a new textview
                 final TextView rowTextView = new TextView(this);
 
@@ -126,17 +215,17 @@ public class RecipeApp extends AppCompatActivity {
                 rowTextView.setText("This is row #" + i);
 
                 // add the textview to the linearlayout
-                myLinearLayout.addView(rowTextView);
+                //myLinearLayout.addView(rowTextView);
 
                 // save a reference to the textview for later
                 myTextViews[i] = rowTextView;
             }
         }
-        else
-        {
+        else {
             myTextViews = new TextView[1]; // create an empty array;
 
-            for (int i = 0; i < N; i++) {
+            for (int i = 0; i < N; i++)
+            {
                 // create a new textview
                 final TextView rowTextView = new TextView(this);
 
@@ -147,7 +236,6 @@ public class RecipeApp extends AppCompatActivity {
 
                 myTextViews[i] = rowTextView;
             }
-        }
         }
     }
 }
