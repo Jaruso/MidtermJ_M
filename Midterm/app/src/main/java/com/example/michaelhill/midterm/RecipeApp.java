@@ -129,7 +129,7 @@ public class RecipeApp extends AppCompatActivity
     }
 
     public void SignUp(View view) {
-        setContentView(R.layout.sing_up_page);
+        setContentView(R.layout.sign_up_page);
         InitPage3();
     }
 
