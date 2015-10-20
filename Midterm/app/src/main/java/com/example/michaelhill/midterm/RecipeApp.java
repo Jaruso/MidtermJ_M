@@ -19,17 +19,23 @@ import java.util.jar.Attributes;
 public class RecipeApp extends AppCompatActivity
 {
     String mUsername;
+    boolean mUsernameCheck;
     String mPassword;
     boolean mPasswordCheck;
+    int mZip;
+    String mEmail;
 
+    List<User> mUsers;
     List<Recipe> mRecipes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.welcome_page);
+        InitPage0();
 
         mUsername = "";
+        mUsernameCheck = false;
         mPassword = "";
         mPasswordCheck = false;
     }
@@ -57,25 +63,21 @@ public class RecipeApp extends AppCompatActivity
     }
 
     //WELCOME PAGE------------------------------------------------------------------------------------------------------------------
-    public void SignIn(View view) {
-        setContentView(R.layout.activity_recipe_app);
-        InitPage1();
-    }
-
-    public void SignUp(View view) {
-        setContentView(R.layout.sing_up_page);
-        InitPage3();
-    }
-
-    //SIGN-IN PAGE-------------------------------------------------------------------------------------------------------------------
-    private void InitPage1() {
+    private void InitPage0()
+    {
         final EditText usernameField = (EditText) findViewById(R.id.UsernameText);
         usernameField.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 boolean handled = false;
-                if (actionId == EditorInfo.IME_ACTION_SEND) {
-                    GetText(usernameField, 0);
+                if (actionId == EditorInfo.IME_ACTION_SEND)
+                {
+                    if(mUsername != "" && mUsername == usernameField.getText().toString())
+                    {
+                        mUsernameCheck = true;
+                    }
+                    else
+                        mUsernameCheck = false;
 
                     handled = true;
                 }
@@ -89,15 +91,11 @@ public class RecipeApp extends AppCompatActivity
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 boolean handled = false;
-                if (actionId == EditorInfo.IME_ACTION_NEXT)
-                {
-                    if(mPassword != "")
-                    {
-                        if(mPassword == passwordField.getText().toString())
-                            mPasswordCheck = true;
-                    }
-                    else
-                        GetText(passwordField, 1);
+                if (actionId == EditorInfo.IME_ACTION_NEXT) {
+                    if (mPassword != "" && mPassword == passwordField.getText().toString()) {
+                        mPasswordCheck = true;
+                    } else
+                        mPasswordCheck = false;
 
                     handled = true;
                 }
@@ -105,6 +103,29 @@ public class RecipeApp extends AppCompatActivity
                 return handled;
             }
         });
+    }
+
+    public void SignIn(View view)
+    {
+        if(mUsernameCheck && mPasswordCheck)
+        {
+            User toCheck = new User();
+
+            if(toCheck.checkUser(mUsers, mEmail, mPassword))
+            {
+                setContentView(R.layout.recepies_page);
+                InitPage3();
+            }
+        }
+        else
+        {
+            Toast.makeText(getApplicationContext(), "Username or Password wasn't recognized", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void SignUp(View view) {
+        setContentView(R.layout.sing_up_page);
+        InitPage3();
     }
 
     private void GetText(EditText toUse, int fieldType) {
@@ -118,10 +139,6 @@ public class RecipeApp extends AppCompatActivity
         }
     }
 
-    public void ConfirmSignIn(View view) {
-        setContentView(R.layout.recepies_page);
-    }
-
     //SIGN-UP PAGE------------------------------------------------------------------------------------------------------------------
     private void InitPage3()
     {
@@ -132,6 +149,7 @@ public class RecipeApp extends AppCompatActivity
                 boolean handled = false;
                 if (actionId == EditorInfo.IME_ACTION_SEND) {
                     GetText(usernameField, 0);
+                    mUsernameCheck =  true;
 
                     handled = true;
                 }
@@ -185,10 +203,10 @@ public class RecipeApp extends AppCompatActivity
 
     public void ConfirmAndSignIn(View view)
     {
-        if(mPasswordCheck)
+        if(mPasswordCheck && mUsernameCheck)
         {
-            setContentView(R.layout.activity_recipe_app);
-            InitPage1();
+            setContentView(R.layout.recepies_page);
+            InitPage2();
         }
         else
         {

@@ -5,8 +5,8 @@ import java.util.List;
 /**
  * Created by joseph.caruso on 10/8/2015.
  */
-public class User {
-
+public class User
+{
     public String mFirstName;
     public String mLastName;
     private String mPassword;
@@ -37,19 +37,18 @@ public class User {
     // return true if user credentials are correct
     public boolean checkUser(List<User> list, String name, String pass){
 
-        // if list.size() != 0
-        // check if name is a name in the list of users
-        for(int i=0; i < list.size(); i++){
-
-
-
+        if( list.size() > 0 )
+        {
+            // check if name is a name in the list of users
+            for(int i=0; i < list.size(); i++)
+            {
+                if (name == list.get(i).mEmail && list.get(i).checkPass(pass))
+                {
+                    return true;
+                }
+            }
         }
 
-        // if yes, call checkPass
-
-            // if check pass returns true, return true
-
-        // else
         return false;
     }
 
