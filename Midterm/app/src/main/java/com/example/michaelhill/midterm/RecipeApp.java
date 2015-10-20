@@ -147,7 +147,7 @@ public class RecipeApp extends AppCompatActivity
     //SIGN-UP PAGE------------------------------------------------------------------------------------------------------------------
     private void InitPage3()
     {
-        final EditText usernameField = (EditText) findViewById(R.id.UsernameText);
+        final EditText usernameField = (EditText) findViewById(R.id.email);
         usernameField.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -163,7 +163,7 @@ public class RecipeApp extends AppCompatActivity
             }
         });
 
-        final EditText passwordField = (EditText) findViewById(R.id.PasswordText);
+        final EditText passwordField = (EditText) findViewById(R.id.password);
         passwordField.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -185,7 +185,7 @@ public class RecipeApp extends AppCompatActivity
             }
         });
 
-        final EditText confirmField = (EditText) findViewById(R.id.ConfirmPassword);
+        final EditText confirmField = (EditText) findViewById(R.id.confirmPass);
         confirmField.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
