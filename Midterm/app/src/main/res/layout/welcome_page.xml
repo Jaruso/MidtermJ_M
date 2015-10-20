@@ -14,6 +14,46 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
+    <TextView
+        android:text="USERNAME:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/UsernameText"
+        android:layout_alignBottom="@+id/UsernameText"
+        android:layout_alignRight="@+id/textView2"
+        android:layout_alignEnd="@+id/textView2" />
+
+    <EditText
+        android:id="@+id/UsernameText"
+        android:text="Username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textNoSuggestions"
+        android:layout_above="@+id/PasswordText"
+        android:layout_alignLeft="@+id/PasswordText"
+        android:layout_alignStart="@+id/PasswordText" />
+
+    <TextView
+        android:text="PASSWORD:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView2"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/PasswordText"
+        android:layout_toStartOf="@+id/PasswordText" />
+
+    <EditText
+        android:id="@+id/PasswordText"
+        android:text="Password"
+        android:inputType="textPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_alignLeft="@+id/textView"
+        android:layout_alignStart="@+id/textView"
+        android:layout_marginLeft="21dp"
+        android:layout_marginStart="21dp" />
+
     <Button
         android:id="@+id/SignInButton"
         android:text="Sign In"
