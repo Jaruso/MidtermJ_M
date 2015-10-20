@@ -18,12 +18,13 @@ import java.util.jar.Attributes;
 
 public class RecipeApp extends AppCompatActivity
 {
-    String mUsername;
-    boolean mUsernameCheck;
+    String mFirstName;
+    String mLastName;
     String mPassword;
     boolean mPasswordCheck;
     int mZip;
     String mEmail;
+    boolean mUsernameCheck;
 
     List<User> mUsers;
     List<Recipe> mRecipes;
@@ -34,8 +35,11 @@ public class RecipeApp extends AppCompatActivity
         setContentView(R.layout.welcome_page);
         InitPage0();
 
-        mUsername = "";
+        mEmail = "";
         mUsernameCheck = false;
+        mFirstName = "";
+        mLastName = "";
+        mZip = 0;
         mPassword = "";
         mPasswordCheck = false;
     }
@@ -72,7 +76,7 @@ public class RecipeApp extends AppCompatActivity
                 boolean handled = false;
                 if (actionId == EditorInfo.IME_ACTION_SEND)
                 {
-                    if(mUsername != "" && mUsername == usernameField.getText().toString())
+                    if(mEmail != "" && mEmail == usernameField.getText().toString())
                     {
                         mUsernameCheck = true;
                     }
@@ -92,7 +96,8 @@ public class RecipeApp extends AppCompatActivity
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 boolean handled = false;
                 if (actionId == EditorInfo.IME_ACTION_NEXT) {
-                    if (mPassword != "" && mPassword == passwordField.getText().toString()) {
+                    if (mPassword != "" && mPassword == passwordField.getText().toString())
+                    {
                         mPasswordCheck = true;
                     } else
                         mPasswordCheck = false;
@@ -131,7 +136,7 @@ public class RecipeApp extends AppCompatActivity
     private void GetText(EditText toUse, int fieldType) {
         switch (fieldType) {
             case 0:
-                mUsername = toUse.getText().toString();
+                mEmail = toUse.getText().toString();
                 break;
             case 1:
                 mPassword = toUse.getText().toString();
@@ -205,8 +210,10 @@ public class RecipeApp extends AppCompatActivity
     {
         if(mPasswordCheck && mUsernameCheck)
         {
-            setContentView(R.layout.recepies_page);
-            InitPage2();
+            User toAdd = new User();
+            toAdd.makeUser(mFirstName, mLastName, mPassword, mZip, mEmail);
+
+            SignIn(view);
         }
         else
         {
