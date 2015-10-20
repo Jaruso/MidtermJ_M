@@ -7,20 +7,30 @@ import java.util.List;
  */
 public class User {
 
-    public String mName;
+    public String mFirstName;
+    public String mLastName;
     private String mPassword;
+    public int mZip;
+    public String mEmail;
+
 
     public User(){
 
-        mName = "JohnDoe";
+        mFirstName = "John";
+        mLastName = "Doe";
         mPassword = "pass";
+        mZip = 00000;
+        mEmail = "jd@gmail.com";
 
     }
 
-    public void makeUser(String name, String pass){
+    public void makeUser(String first, String last, String pass, int zip, String email){
 
-        mName = name;
+        mFirstName = first;
+        mLastName = last;
         mPassword = pass;
+        mZip = zip;
+        mEmail = email;
 
     }
 
