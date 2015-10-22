@@ -10,7 +10,7 @@ public class User
     public String mFirstName;
     public String mLastName;
     private String mPassword;
-    public int mZip;
+    public String mZip;
     public String mEmail;
 
 
@@ -19,12 +19,12 @@ public class User
         mFirstName = "John";
         mLastName = "Doe";
         mPassword = "pass";
-        mZip = 00000;
+        mZip = "0000";
         mEmail = "jd@gmail.com";
 
     }
 
-    public void makeUser(String first, String last, String pass, int zip, String email){
+    public void makeUser(String first, String last, String pass, String zip, String email){
 
         mFirstName = first;
         mLastName = last;

@@ -3,11 +3,13 @@ package com.example.michaelhill.midterm;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -22,7 +24,7 @@ public class RecipeApp extends AppCompatActivity
     String mLastName;
     String mPassword;
     boolean mPasswordCheck;
-    int mZip;
+    String mZip;
     String mEmail;
     boolean mUsernameCheck;
 
@@ -39,7 +41,7 @@ public class RecipeApp extends AppCompatActivity
         mUsernameCheck = false;
         mFirstName = "";
         mLastName = "";
-        mZip = 0;
+        mZip = "";
         mPassword = "";
         mPasswordCheck = false;
     }
@@ -74,9 +76,9 @@ public class RecipeApp extends AppCompatActivity
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 boolean handled = false;
-                if (actionId == EditorInfo.IME_ACTION_SEND)
+                if (actionId == EditorInfo.IME_ACTION_NEXT)
                 {
-                    if(mEmail != "" && mEmail == usernameField.getText().toString())
+                    if(!mEmail.trim().equals("") && mEmail.trim().equals(usernameField.getText().toString()))
                     {
                         mUsernameCheck = true;
                     }
@@ -96,7 +98,7 @@ public class RecipeApp extends AppCompatActivity
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 boolean handled = false;
                 if (actionId == EditorInfo.IME_ACTION_NEXT) {
-                    if (mPassword != "" && mPassword == passwordField.getText().toString())
+                    if (!mPassword.trim().equals("") && mPassword.trim().equals(passwordField.getText().toString()))
                     {
                         mPasswordCheck = true;
                     } else
@@ -128,12 +130,14 @@ public class RecipeApp extends AppCompatActivity
         }
     }
 
-    public void SignUp(View view) {
+    public void SignUp(View view)
+    {
         setContentView(R.layout.sign_up_page);
         InitPage3();
     }
 
-    private void GetText(EditText toUse, int fieldType) {
+    private void GetText(EditText toUse, int fieldType)
+    {
         switch (fieldType) {
             case 0:
                 mEmail = toUse.getText().toString();
@@ -141,20 +145,71 @@ public class RecipeApp extends AppCompatActivity
             case 1:
                 mPassword = toUse.getText().toString();
                 break;
+            case 2:
+                mFirstName = toUse.getText().toString();
+                break;
+            case 3:
+                mLastName = toUse.getText().toString();
+                break;
+            case 4:
+                mZip = toUse.getText().toString();
+                break;
         }
     }
 
     //SIGN-UP PAGE------------------------------------------------------------------------------------------------------------------
     private void InitPage3()
     {
+        final EditText firstNameField = (EditText) findViewById(R.id.firstName);
+        firstNameField.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                boolean handled = false;
+                if (actionId == EditorInfo.IME_ACTION_NEXT)
+                {
+                    GetText(firstNameField, 2);
+
+                    //hide keyboard
+                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(firstNameField.getWindowToken(), 0);
+
+                    handled = true;
+                }
+
+                return handled;
+            }
+        });
+        final EditText lastNameField = (EditText) findViewById(R.id.lastName);
+        lastNameField.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                boolean handled = false;
+                if (actionId == EditorInfo.IME_ACTION_NEXT) {
+                    GetText(lastNameField, 3);
+
+                    //hide keyboard
+                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(lastNameField.getWindowToken(), 0);
+
+                    handled = true;
+                }
+
+                return handled;
+            }
+        });
+
         final EditText usernameField = (EditText) findViewById(R.id.email);
         usernameField.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 boolean handled = false;
-                if (actionId == EditorInfo.IME_ACTION_SEND) {
+                if (actionId == EditorInfo.IME_ACTION_NEXT) {
                     GetText(usernameField, 0);
                     mUsernameCheck =  true;
+
+                    //hide keyboard
+                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(usernameField.getWindowToken(), 0);
 
                     handled = true;
                 }
@@ -170,13 +225,19 @@ public class RecipeApp extends AppCompatActivity
                 boolean handled = false;
                 if (actionId == EditorInfo.IME_ACTION_NEXT)
                 {
-                    if(mPassword != "")
+                    if(!mPassword.trim().equals(""))
                     {
-                        if(mPassword == passwordField.getText().toString())
+                        if(mPassword.trim().equals(passwordField.getText().toString()))
+                        {
                             mPasswordCheck = true;
+                        }
                     }
                     else
                         GetText(passwordField, 1);
+
+                    //hide keyboard
+                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(passwordField.getWindowToken(), 0);
 
                     handled = true;
                 }
@@ -192,11 +253,36 @@ public class RecipeApp extends AppCompatActivity
                 boolean handled = false;
                 if (actionId == EditorInfo.IME_ACTION_NEXT)
                 {
-                    if (mPassword != "") {
-                        if (mPassword == confirmField.getText().toString())
+                    if (!mPassword.trim().equals(""))
+                    {
+                        if (mPassword.trim().equals(confirmField.getText().toString()))
                             mPasswordCheck = true;
                     } else
-                        GetText(confirmField, 2);
+                        GetText(confirmField, 1);
+
+                    //hide keyboard
+                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(confirmField.getWindowToken(), 0);
+
+                    handled = true;
+                }
+
+                return handled;
+            }
+        });
+
+        final EditText zipField = (EditText) findViewById(R.id.zipCode);
+        zipField.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                boolean handled = false;
+                if (actionId == EditorInfo.IME_ACTION_NEXT)
+                {
+                    GetText(zipField, 4);
+
+                    //hide keyboard
+                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(zipField.getWindowToken(), 0);
 
                     handled = true;
                 }
@@ -208,17 +294,33 @@ public class RecipeApp extends AppCompatActivity
 
     public void ConfirmAndSignIn(View view)
     {
-        if(mPasswordCheck && mUsernameCheck)
+        int counter = 0;
+
+        if(mPasswordCheck)
+            counter++;
+        else
+        {
+            Toast toast = Toast.makeText(getApplicationContext(), "Passwords don't match", Toast.LENGTH_SHORT);
+            toast.show();
+        }
+
+        if(!mEmail.trim().equals("") && !mFirstName.trim().equals("") && !mLastName.trim().equals("") && !mZip.trim().equals(""))
+            counter++;
+        else
+        {
+            Toast toast = Toast.makeText(getApplicationContext(), "You are missing a field", Toast.LENGTH_SHORT);
+            toast.show();
+        }
+
+
+        if(counter >= 2)
         {
             User toAdd = new User();
             toAdd.makeUser(mFirstName, mLastName, mPassword, mZip, mEmail);
 
+            mUsers.add(toAdd);
+
             SignIn(view);
-        }
-        else
-        {
-            Toast toast = Toast.makeText(getApplicationContext(), "Passwords don't match", Toast.LENGTH_LONG);
-            toast.show();
         }
     }
     //RECIPES PAGE------------------------------------------------------------------------------------------------------------------
