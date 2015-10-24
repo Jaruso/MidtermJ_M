@@ -20,12 +20,13 @@ import java.util.jar.Attributes;
 
 public class RecipeApp extends AppCompatActivity
 {
+    User temp;
     String mFirstName;
     String mLastName;
-    String mPassword;
     boolean mPasswordCheck;
     String mZip;
     String mEmail;
+    String mPassword;
     boolean mUsernameCheck;
 
     List<User> mUsers;
@@ -34,7 +35,6 @@ public class RecipeApp extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.welcome_page);
         InitPage0();
 
         mEmail = "";
@@ -71,6 +71,11 @@ public class RecipeApp extends AppCompatActivity
     //WELCOME PAGE------------------------------------------------------------------------------------------------------------------
     private void InitPage0()
     {
+        setContentView(R.layout.welcome_page);
+
+
+
+        /*
         final EditText usernameField = (EditText) findViewById(R.id.UsernameText);
         usernameField.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -110,19 +115,20 @@ public class RecipeApp extends AppCompatActivity
                 return handled;
             }
         });
+        */
+
     }
 
     public void SignIn(View view)
     {
-        if(mUsernameCheck && mPasswordCheck)
-        {
-            User toCheck = new User();
+        EditText usernameField = (EditText) findViewById(R.id.UsernameText);
+        EditText passwordField = (EditText) findViewById(R.id.PasswordText);
 
-            if(toCheck.checkUser(mUsers, mEmail, mPassword))
-            {
-                setContentView(R.layout.recepies_page);
-                InitPage3();
-            }
+        temp = new User(usernameField.getText().toString(), passwordField.getText().toString());
+
+        if(temp.checkUser(mUsers))
+        {
+            InitPage2();
         }
         else
         {
@@ -132,8 +138,8 @@ public class RecipeApp extends AppCompatActivity
 
     public void SignUp(View view)
     {
-        setContentView(R.layout.sign_up_page);
         InitPage3();
+
     }
 
     private void GetText(EditText toUse, int fieldType)
@@ -160,6 +166,9 @@ public class RecipeApp extends AppCompatActivity
     //SIGN-UP PAGE------------------------------------------------------------------------------------------------------------------
     private void InitPage3()
     {
+        setContentView(R.layout.sign_up_page);
+
+        /*
         final EditText firstNameField = (EditText) findViewById(R.id.firstName);
         firstNameField.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -290,38 +299,41 @@ public class RecipeApp extends AppCompatActivity
                 return handled;
             }
         });
+        */
     }
 
-    public void ConfirmAndSignIn(View view)
-    {
-        int counter = 0;
+    public void ConfirmAndSignIn(View view) {
+        EditText firstNameField = (EditText) findViewById(R.id.firstName);
+        EditText lastNameField = (EditText) findViewById(R.id.lastName);
+        EditText usernameField = (EditText) findViewById(R.id.email);
+        EditText passwordField = (EditText) findViewById(R.id.password);
+        EditText confirmField = (EditText) findViewById(R.id.confirmPass);
+        EditText zipField = (EditText) findViewById(R.id.zipCode);
 
-        if(mPasswordCheck)
-            counter++;
-        else
-        {
-            Toast toast = Toast.makeText(getApplicationContext(), "Passwords don't match", Toast.LENGTH_SHORT);
-            toast.show();
+        temp.mEmail = usernameField.getText().toString();
+
+        if (!temp.isExist(mUsers)) {
+
+            if(passwordField.getText().toString() == confirmField.getText().toString()) {
+                User newUser = new User(firstNameField.getText().toString(),
+                                        lastNameField.getText().toString(),
+                                        passwordField.getText().toString(),
+                                        zipField.getText().toString(),
+                                        usernameField.getText().toString()  );
+                mUsers.add(newUser);
+                temp.setUser(newUser);
+                InitPage2();
+            }
+            else{
+
+                //password fields do not match
+            }
+
+        }
+        else{
+            //username already exists
         }
 
-        if(!mEmail.trim().equals("") && !mFirstName.trim().equals("") && !mLastName.trim().equals("") && !mZip.trim().equals(""))
-            counter++;
-        else
-        {
-            Toast toast = Toast.makeText(getApplicationContext(), "You are missing a field", Toast.LENGTH_SHORT);
-            toast.show();
-        }
-
-
-        if(counter >= 2)
-        {
-            User toAdd = new User();
-            toAdd.makeUser(mFirstName, mLastName, mPassword, mZip, mEmail);
-
-            mUsers.add(toAdd);
-
-            SignIn(view);
-        }
     }
     //RECIPES PAGE------------------------------------------------------------------------------------------------------------------
     private void InitPage2()

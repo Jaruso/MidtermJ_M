@@ -24,7 +24,17 @@ public class User
 
     }
 
-    public void makeUser(String first, String last, String pass, String zip, String email){
+    public User(String email, String pass){
+
+        mFirstName = "";
+        mLastName = "";
+        mPassword = pass;
+        mZip = "";
+        mEmail = email;
+
+    }
+
+    public User(String first, String last, String pass, String zip, String email){
 
         mFirstName = first;
         mLastName = last;
@@ -34,15 +44,41 @@ public class User
 
     }
 
+    public void setUser(User store){
+
+        mFirstName = store.mFirstName;
+        mLastName = store.mLastName;
+        mZip = store.mLastName;
+
+    }
+
     // return true if user credentials are correct
-    public boolean checkUser(List<User> list, String name, String pass){
+    public boolean checkUser(List<User> list){
 
         if( list.size() > 0 )
         {
             // check if name is a name in the list of users
             for(int i=0; i < list.size(); i++)
             {
-                if (name == list.get(i).mEmail && list.get(i).checkPass(pass))
+                if (this.mEmail == list.get(i).mEmail && list.get(i).checkPass(this.mPassword))
+                {
+                    this.setUser(list.get(i));
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    public boolean isExist(List<User> list){
+
+        if( list.size() > 0 )
+        {
+            // check if name is a name in the list of users
+            for(int i=0; i < list.size(); i++)
+            {
+                if (this.mEmail == list.get(i).mEmail )
                 {
                     return true;
                 }
