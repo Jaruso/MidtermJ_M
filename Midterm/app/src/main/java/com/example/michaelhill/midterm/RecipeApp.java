@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.jar.Attributes;
 
@@ -29,14 +30,15 @@ public class RecipeApp extends AppCompatActivity
     String mPassword;
     boolean mUsernameCheck;
 
-    List<User> mUsers;
-    List<Recipe> mRecipes;
+    ArrayList<User> mUsers = new ArrayList<>();
+    ArrayList<Recipe> mRecipes = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         InitPage0();
 
+        temp = new User();
         mEmail = "";
         mUsernameCheck = false;
         mFirstName = "";
@@ -124,9 +126,13 @@ public class RecipeApp extends AppCompatActivity
         EditText usernameField = (EditText) findViewById(R.id.UsernameText);
         EditText passwordField = (EditText) findViewById(R.id.PasswordText);
 
-        temp = new User(usernameField.getText().toString(), passwordField.getText().toString());
+        String user = usernameField.getText().toString();
+        temp.mEmail = user;
 
-        if(temp.checkUser(mUsers))
+        String pass = passwordField.getText().toString();
+
+
+        if(temp.checkUser(mUsers, pass))
         {
             InitPage2();
         }
@@ -142,25 +148,13 @@ public class RecipeApp extends AppCompatActivity
 
     }
 
-    private void GetText(EditText toUse, int fieldType)
-    {
-        switch (fieldType) {
-            case 0:
-                mEmail = toUse.getText().toString();
-                break;
-            case 1:
-                mPassword = toUse.getText().toString();
-                break;
-            case 2:
-                mFirstName = toUse.getText().toString();
-                break;
-            case 3:
-                mLastName = toUse.getText().toString();
-                break;
-            case 4:
-                mZip = toUse.getText().toString();
-                break;
-        }
+    public void returnHome(View view){
+        temp.clear();
+        InitPage0();
+    }
+
+    public void signOut(View view){
+        returnHome(view);
     }
 
     //SIGN-UP PAGE------------------------------------------------------------------------------------------------------------------
@@ -303,41 +297,64 @@ public class RecipeApp extends AppCompatActivity
     }
 
     public void ConfirmAndSignIn(View view) {
-        EditText firstNameField = (EditText) findViewById(R.id.firstName);
-        EditText lastNameField = (EditText) findViewById(R.id.lastName);
-        EditText usernameField = (EditText) findViewById(R.id.email);
-        EditText passwordField = (EditText) findViewById(R.id.password);
-        EditText confirmField = (EditText) findViewById(R.id.confirmPass);
-        EditText zipField = (EditText) findViewById(R.id.zipCode);
+       final EditText firstNameField = (EditText) findViewById(R.id.firstName);
+       final EditText lastNameField = (EditText) findViewById(R.id.lastName);
+       final EditText usernameField = (EditText) findViewById(R.id.email);
+       final EditText passwordField = (EditText) findViewById(R.id.password);
+       final EditText confirmField = (EditText) findViewById(R.id.confirmPass);
+       final EditText zipField = (EditText) findViewById(R.id.zipCode);
 
         temp.mEmail = usernameField.getText().toString();
 
-        if (!temp.isExist(mUsers)) {
+        String pass = passwordField.getText().toString();
+        String passconfirm = confirmField.getText().toString();
 
-            if(passwordField.getText().toString() == confirmField.getText().toString()) {
+        if(mUsers.size() == 0)
+        {
+            if (pass.equals(passconfirm)) {
                 User newUser = new User(firstNameField.getText().toString(),
-                                        lastNameField.getText().toString(),
-                                        passwordField.getText().toString(),
-                                        zipField.getText().toString(),
-                                        usernameField.getText().toString()  );
+                        lastNameField.getText().toString(),
+                        passwordField.getText().toString(),
+                        zipField.getText().toString(),
+                        usernameField.getText().toString());
                 mUsers.add(newUser);
                 temp.setUser(newUser);
                 InitPage2();
-            }
-            else{
+            } else {
 
-                //password fields do not match
+                Toast.makeText(getApplicationContext(), pass + " does not match " + passconfirm, Toast.LENGTH_SHORT).show();
             }
+        }
+        else {
+            if (temp.isExist(mUsers)) {
+                Toast.makeText(getApplicationContext(), "Username already exists.", Toast.LENGTH_SHORT).show();
+            } else {
 
+                if (pass.equals(passconfirm)) {
+                    User newUser = new User(firstNameField.getText().toString(),
+                            lastNameField.getText().toString(),
+                            passwordField.getText().toString(),
+                            zipField.getText().toString(),
+                            usernameField.getText().toString());
+                    mUsers.add(newUser);
+                    temp.setUser(newUser);
+                    InitPage2();
+                } else {
+
+                    Toast.makeText(getApplicationContext(), "Passwords do not match.", Toast.LENGTH_SHORT).show();
+                }
+
+            }
         }
-        else{
-            //username already exists
-        }
+
 
     }
     //RECIPES PAGE------------------------------------------------------------------------------------------------------------------
     private void InitPage2()
     {
+
+        setContentView(R.layout.recepies_page);
+
         final int N = mRecipes.size(); // total number of textviews to add
         final TextView[] myTextViews;
 

@@ -75,12 +75,23 @@
         android:hint="ZIP CODE"
         android:inputType="number"/>
 
-    <Button
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="horizontal" android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="CREATE"
-        android:id="@+id/create"
-        android:layout_gravity="right"
-        android:onClick="ConfirmAndSignIn"/>
+        android:text="Home"
+            android:id="@+id/returnHome" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CREATE"
+            android:id="@+id/create"
+            android:onClick="ConfirmAndSignIn"/>
+
+    </LinearLayout>
 
 </LinearLayout>

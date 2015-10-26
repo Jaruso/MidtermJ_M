@@ -1,5 +1,6 @@
 package com.example.michaelhill.midterm;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,11 +17,11 @@ public class User
 
     public User(){
 
-        mFirstName = "John";
-        mLastName = "Doe";
-        mPassword = "pass";
-        mZip = "0000";
-        mEmail = "jd@gmail.com";
+        mFirstName = "";
+        mLastName = "";
+        mPassword = "";
+        mZip = "";
+        mEmail = "";
 
     }
 
@@ -52,18 +53,30 @@ public class User
 
     }
 
+    public void clear(){
+
+        mFirstName = "";
+        mLastName = "";
+        mPassword = "";
+        mZip = "";
+        mEmail = "";
+
+    }
+
     // return true if user credentials are correct
-    public boolean checkUser(List<User> list){
+    public boolean checkUser(ArrayList<User> list, String pass){
 
         if( list.size() > 0 )
         {
             // check if name is a name in the list of users
             for(int i=0; i < list.size(); i++)
             {
-                if (this.mEmail == list.get(i).mEmail && list.get(i).checkPass(this.mPassword))
+                if (this.mEmail.equals(list.get(i).mEmail))
                 {
-                    this.setUser(list.get(i));
-                    return true;
+                    if(list.get(i).checkPass(pass)) {
+                        this.setUser(list.get(i));
+                        return true;
+                    }
                 }
             }
         }
@@ -71,14 +84,18 @@ public class User
         return false;
     }
 
-    public boolean isExist(List<User> list){
+    public boolean isExist(ArrayList<User> list){
 
-        if( list.size() > 0 )
+        if( list.size() == 0 )
+        {
+            return false;
+        }
+        else
         {
             // check if name is a name in the list of users
             for(int i=0; i < list.size(); i++)
             {
-                if (this.mEmail == list.get(i).mEmail )
+                if (this.mEmail.equals(list.get(i).mEmail))
                 {
                     return true;
                 }
@@ -92,7 +109,7 @@ public class User
     private boolean checkPass(String pass){
 
         // if this.mPassword == pass return true
-        if(this.mPassword == pass)
+        if(this.mPassword.equals(pass))
             return true;
         else
             return false;
