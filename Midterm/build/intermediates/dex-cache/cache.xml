@@ -2,32 +2,32 @@
 <items version="2" >
 
     <item
-        jar="C:\Users\Joe\Documents\College\Fall 2015\Mobile Programming\MidtermJ_M\Midterm\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.0.0\jars\libs\internal_impl-23.0.0.jar"
-        jumboMode="false"
-        revision="23.0.0"
-        sha1="8bd336eeae661e8311330284897ee07f8ebaa297">
-        <dex dex="C:\Users\Joe\Documents\College\Fall 2015\Mobile Programming\MidtermJ_M\Midterm\app\build\intermediates\pre-dexed\debug\internal_impl-23.0.0-0626517b7fb9f6bfbcbd1b8a5c9ccb18786068d9.jar" />
-    </item>
-    <item
-        jar="C:\Users\Joe\Documents\College\Fall 2015\Mobile Programming\MidtermJ_M\Midterm\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.0.0\jars\classes.jar"
-        jumboMode="false"
-        revision="23.0.0"
-        sha1="4fcf0b1879f8caf497c073e1432d398e9e2988c1">
-        <dex dex="C:\Users\Joe\Documents\College\Fall 2015\Mobile Programming\MidtermJ_M\Midterm\app\build\intermediates\pre-dexed\debug\classes-b99fa32fb172e83ce2aff7f72d525fab082f032a.jar" />
-    </item>
-    <item
-        jar="C:\Users\Joe\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\23.0.0\support-annotations-23.0.0.jar"
-        jumboMode="false"
-        revision="23.0.0"
-        sha1="990e7f98a7bad86a40b1f0bcfeb039023afd0839">
-        <dex dex="C:\Users\Joe\Documents\College\Fall 2015\Mobile Programming\MidtermJ_M\Midterm\app\build\intermediates\pre-dexed\debug\support-annotations-23.0.0-5277c09259af0a7f355dd7e51903aa27cbbedbb3.jar" />
-    </item>
-    <item
-        jar="C:\Users\Joe\Documents\College\Fall 2015\Mobile Programming\MidtermJ_M\Midterm\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.0.0\jars\classes.jar"
+        jar="H:\MidtermJ_M\Midterm\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.0.0\jars\classes.jar"
         jumboMode="false"
         revision="23.0.0"
         sha1="8413c27b45b7fe61dca4a98159f65e2cee215f5a">
-        <dex dex="C:\Users\Joe\Documents\College\Fall 2015\Mobile Programming\MidtermJ_M\Midterm\app\build\intermediates\pre-dexed\debug\classes-1b5331ba9d202e9b37752da94ff69d06e2789b6a.jar" />
+        <dex dex="H:\MidtermJ_M\Midterm\app\build\intermediates\pre-dexed\debug\classes-3701dca5cdac83b3e3dec7dd2eba748bea3b841d.jar" />
+    </item>
+    <item
+        jar="H:\MidtermJ_M\Midterm\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.0.0\jars\classes.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="4fcf0b1879f8caf497c073e1432d398e9e2988c1">
+        <dex dex="H:\MidtermJ_M\Midterm\app\build\intermediates\pre-dexed\debug\classes-3b74ef7f11116d344d77615c6ea1d59288746e60.jar" />
+    </item>
+    <item
+        jar="H:\MidtermJ_M\Midterm\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.0.0\jars\libs\internal_impl-23.0.0.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="8bd336eeae661e8311330284897ee07f8ebaa297">
+        <dex dex="H:\MidtermJ_M\Midterm\app\build\intermediates\pre-dexed\debug\internal_impl-23.0.0-d35357e290695824a9dc63ec8d98eaa4dca23db0.jar" />
+    </item>
+    <item
+        jar="C:\Users\joseph.caruso\AppData\Local\Android\Sdk\extras\android\m2repository\com\android\support\support-annotations\23.0.0\support-annotations-23.0.0.jar"
+        jumboMode="false"
+        revision="23.0.0"
+        sha1="990e7f98a7bad86a40b1f0bcfeb039023afd0839">
+        <dex dex="H:\MidtermJ_M\Midterm\app\build\intermediates\pre-dexed\debug\support-annotations-23.0.0-65a74e4e4b98d0e1d3cfc68f1df84879f0599e9b.jar" />
     </item>
 
 </items>
