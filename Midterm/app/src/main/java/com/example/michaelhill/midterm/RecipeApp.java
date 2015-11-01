@@ -8,6 +8,7 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -352,46 +353,13 @@ public class RecipeApp extends AppCompatActivity
     //RECIPES PAGE------------------------------------------------------------------------------------------------------------------
     private void InitPage2()
     {
-
         setContentView(R.layout.recepies_page);
 
         final int N = mRecipes.size(); // total number of textviews to add
-        final TextView[] myTextViews;
 
-        if(N > 0)
+        for(int i = 0; i < N; i++)
         {
-            myTextViews = new TextView[N]; // create an empty array;
-
-            for (int i = 0; i < N; i++)
-            {
-                // create a new textview
-                final TextView rowTextView = new TextView(this);
-
-                // set some properties of rowTextView or something
-                rowTextView.setText("This is row #" + i);
-
-                // add the textview to the linearlayout
-                //myLinearLayout.addView(rowTextView);
-
-                // save a reference to the textview for later
-                myTextViews[i] = rowTextView;
-            }
-        }
-        else {
-            myTextViews = new TextView[1]; // create an empty array;
-
-            for (int i = 0; i < N; i++)
-            {
-                // create a new textview
-                final TextView rowTextView = new TextView(this);
-
-                // set some properties of rowTextView or something
-                rowTextView.setText("This is row #" + i);
-
-                // add the textview to the linearlayou
-
-                myTextViews[i] = rowTextView;
-            }
+            mRecipes.get(i).AddRecipeToRecipes(getApplicationContext(), (LinearLayout) findViewById(R.layout.recepies_page) );
         }
     }
 }
