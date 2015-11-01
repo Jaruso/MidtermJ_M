@@ -13,6 +13,7 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -355,11 +356,14 @@ public class RecipeApp extends AppCompatActivity
     {
         setContentView(R.layout.recepies_page);
 
+        mRecipes.add(new Recipe(this));
+        mRecipes.add(new Recipe(this));
+
         final int N = mRecipes.size(); // total number of textviews to add
 
         for(int i = 0; i < N; i++)
         {
-            mRecipes.get(i).AddRecipeToRecipes(getApplicationContext(), (LinearLayout) findViewById(R.layout.recepies_page) );
+            mRecipes.get(i).AddRecipeToRecipes((LinearLayout) findViewById(R.id.RecipeListHolder));
         }
     }
 }
