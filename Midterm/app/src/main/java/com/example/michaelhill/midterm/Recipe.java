@@ -33,13 +33,24 @@ public class Recipe
         mServes = -1;
     }
 
-    public void SetFields(int prepTime, int cookTime, String instructions, String ingredients, int serves)
+        public void SetFields(int prepTime, int cookTime, String instructions, String ingredients, int serves)
     {
         mPrepTime = prepTime;
         mCookTime = cookTime;
         mInstructions = instructions;
         mIngredients = ingredients;
         mServes = serves;
+    }
+
+    public void SetFields(int prepTime, int cookTime, String instructions, String ingredients, int serves, String title, String path)
+    {
+        mPrepTime = prepTime;
+        mCookTime = cookTime;
+        mInstructions = instructions;
+        mIngredients = ingredients;
+        mServes = serves;
+        mTitle = title;
+        mPath = path;
     }
 
     public int GetPrepTime() { return mPrepTime; }
