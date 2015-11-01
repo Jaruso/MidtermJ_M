@@ -1,12 +1,18 @@
 package com.example.michaelhill.midterm;
 
+import android.app.Activity;
 import android.content.Context;
+import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 public class Recipe
 {
+    Activity mActivity;
+
     String mTitle;
     String mIngredients;
     private int mPrepTime;
@@ -15,18 +21,25 @@ public class Recipe
     int mServes;    // # of people
     private String mPath;    // path to image
 
-    public Recipe()
+    public Recipe(Activity activity)
     {
+        mActivity = activity;
+
         mPrepTime = -1;
         mCookTime = -1;
         mInstructions = "VOID";
+        mIngredients = "VOID";
+
+        mServes = -1;
     }
 
-    public void SetFields(int prepTime, int cookTime, String instructions)
+    public void SetFields(int prepTime, int cookTime, String instructions, String ingredients, int serves)
     {
         mPrepTime = prepTime;
         mCookTime = cookTime;
         mInstructions = instructions;
+        mIngredients = ingredients;
+        mServes = serves;
     }
 
     public int GetPrepTime() { return mPrepTime; }
@@ -39,30 +52,40 @@ public class Recipe
         return mInstructions;
     }
 
-    public void AddRecipeToRecipes(Context context, LinearLayout toUse)
+    public void AddRecipeToRecipes(LinearLayout toUse)
     {
-        TextView textView1 = new TextView(context);
-        textView1.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT,
-                LayoutParams.WRAP_CONTENT));
-        textView1.setText(mTitle + "\nPrep time : " + mPrepTime + "\nCook Time: " + mCookTime + "\nTotal time: " + (mCookTime+mPrepTime));
-        textView1.setBackgroundColor(0xff66ff66); // hex color 0xAARRGGBB
-        textView1.setPadding(20, 20, 20, 20);// in pixels (left, top, right, bottom)
-        toUse.addView(textView1);
-    }
-
-    public void PrintRecipe(Context context, LinearLayout toUse)
-    {
-        TextView textView1 = new TextView(context);
+        Button textView1 = new Button(mActivity.getApplicationContext());
         textView1.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT,
                 LayoutParams.WRAP_CONTENT));
         textView1.setText(mTitle +
+                "\nPrep time : " + mPrepTime +
+                "\nCook Time: " + mCookTime +
+                "\nTotal time: " + (mCookTime + mPrepTime));
+        textView1.setPadding(20, 20, 20, 20);// in pixels (left, top, right, bottom)
+
+        textView1.setOnClickListener(getOnClickDoSomething(textView1));
+
+        //adding to the scroll view
+        toUse.addView(textView1);
+    }
+
+    //on click listener for the buttons
+    View.OnClickListener getOnClickDoSomething(final Button button)
+    {
+        return new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
+                mActivity.setContentView(R.layout.recipe);
+
+                TextView toWrite = (TextView) mActivity.findViewById(R.id.printer);
+                toWrite.setText(mTitle +
                         "\nPrep time : " + mPrepTime +
                         "\nCook Time: " + mCookTime +
                         "\nTotal time: " + (mCookTime+mPrepTime) +
                         "\nINGREDIENTS: " + mIngredients +
                         "\nDIRECTIONS: " + mInstructions);
-        textView1.setBackgroundColor(0xff66ff66); // hex color 0xAARRGGBB
-        textView1.setPadding(20, 20, 20, 20);// in pixels (left, top, right, bottom)
-        toUse.addView(textView1);
+            }
+        };
     }
 }
