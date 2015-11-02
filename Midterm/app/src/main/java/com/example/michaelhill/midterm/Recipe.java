@@ -9,9 +9,11 @@ import android.widget.LinearLayout.LayoutParams;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 public class Recipe
 {
-    Activity mActivity;
+    RecipeApp mActivity;
 
     String mTitle;
     String mIngredients;
@@ -20,8 +22,11 @@ public class Recipe
     private String mInstructions;
     int mServes;    // # of people
     private String mPath;    // path to image
+    private boolean mIsLiked;
 
-    public Recipe(Activity activity)
+    private int mMyIndex;
+
+    public Recipe(RecipeApp activity)
     {
         mActivity = activity;
 
@@ -30,10 +35,13 @@ public class Recipe
         mInstructions = "VOID";
         mIngredients = "VOID";
 
+        mIsLiked = false;
+
         mServes = -1;
+        mMyIndex = 0;
     }
 
-        public void SetFields(int prepTime, int cookTime, String instructions, String ingredients, int serves)
+    public void SetFields(int prepTime, int cookTime, String instructions, String ingredients, int serves)
     {
         mPrepTime = prepTime;
         mCookTime = cookTime;
@@ -53,6 +61,16 @@ public class Recipe
         mPath = path;
     }
 
+    public void SetIndex(int toSet)
+    {
+        mMyIndex = toSet;
+    }
+
+    public void Like()
+    {
+        mIsLiked = !mIsLiked;
+    }
+
     public int GetPrepTime() { return mPrepTime; }
     public int GetCookTime()
     {
@@ -65,13 +83,20 @@ public class Recipe
 
     public void AddRecipeToRecipes(LinearLayout toUse)
     {
+        toUse.removeAllViews();
+
+        String liked = "";
+        if(mIsLiked)
+            liked = "\nLiked";
+
         Button textView1 = new Button(mActivity.getApplicationContext());
         textView1.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT,
                 LayoutParams.WRAP_CONTENT));
         textView1.setText(mTitle +
                 "\nPrep time : " + mPrepTime +
                 "\nCook Time: " + mCookTime +
-                "\nTotal time: " + (mCookTime + mPrepTime));
+                "\nTotal time: " + (mCookTime + mPrepTime) +
+                liked);
         textView1.setPadding(20, 20, 20, 20);// in pixels (left, top, right, bottom)
 
         textView1.setOnClickListener(getOnClickDoSomething(textView1));
@@ -88,6 +113,8 @@ public class Recipe
             public void onClick(View v)
             {
                 mActivity.setContentView(R.layout.recipe);
+
+                mActivity.SetCurrentRecipe(mMyIndex);
 
                 TextView toWrite = (TextView) mActivity.findViewById(R.id.printer);
                 toWrite.setText(mTitle +

@@ -35,6 +35,7 @@ public class RecipeApp extends AppCompatActivity
 
     ArrayList<User> mUsers = new ArrayList<>();
     ArrayList<Recipe> mRecipes = new ArrayList<>();
+    private int mCurrentRecipe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +52,8 @@ public class RecipeApp extends AppCompatActivity
         mZip = "";
         mPassword = "";
         mPasswordCheck = false;
+
+        mCurrentRecipe = 0;
     }
 
     @Override
@@ -79,8 +82,6 @@ public class RecipeApp extends AppCompatActivity
     private void InitPage0()
     {
         setContentView(R.layout.welcome_page);
-
-
 
         /*
         final EditText usernameField = (EditText) findViewById(R.id.UsernameText);
@@ -158,7 +159,11 @@ public class RecipeApp extends AppCompatActivity
         InitPage0();
     }
 
-    public void signOut(View view){
+    public void signOut(View view)
+    {
+        LinearLayout toClear = (LinearLayout) findViewById(R.id.RecipeListHolder);
+        toClear.removeAllViews();
+
         returnHome(view);
     }
 
@@ -374,5 +379,20 @@ public class RecipeApp extends AppCompatActivity
     {
         Intent intent = new Intent(this, CreateRecipe.class);
         startActivity(intent);
+    }
+
+    public void SetCurrentRecipe(int toSet)
+    {
+        mCurrentRecipe = toSet;
+    }
+    //RECIPE PAGE-----------------------------------------------------------------------------------------------------
+    public void Like(View view)
+    {
+        mRecipes.get(mCurrentRecipe).Like();
+    }
+
+    public void BackToRecipes(View view)
+    {
+        setContentView(R.layout.recepies_page);
     }
 }
