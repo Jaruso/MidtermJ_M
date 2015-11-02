@@ -1,29 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ScrollView
-        android:id="@+id/RecipeList"
+
+
+    <LinearLayout
+        android:id="@+id/RecipeListHolder"
+        android:orientation="vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-        <LinearLayout
-            android:id="@+id/RecipeListHolder"
-            android:orientation="vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+    </LinearLayout>
 
-        </LinearLayout>
-
-    </ScrollView>
-
-    <Button
+    <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="SIGN OUT"
-        android:id="@+id/button"
-        android:layout_gravity="right"
-        android:onClick="signOut"/>
+        android:layout_height="wrap_content">
+
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SIGN OUT"
+            android:id="@+id/signOutButton"
+            android:layout_alignParentRight="true"
+            android:onClick="signOut"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Create Recipe"
+            android:id="@+id/create"
+            android:layout_toLeftOf="@id/signOutButton"
+            android:onClick="Create"
+            />
+
+    </RelativeLayout>
 
 </LinearLayout>
+
+</ScrollView>

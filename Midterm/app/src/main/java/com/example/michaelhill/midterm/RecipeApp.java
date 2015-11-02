@@ -1,6 +1,7 @@
 package com.example.michaelhill.midterm;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -39,6 +40,8 @@ public class RecipeApp extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         InitPage0();
+
+        mUsers.add(new User("Master","Chief","pass","12345","admin"));
 
         temp = new User();
         mEmail = "";
@@ -365,5 +368,11 @@ public class RecipeApp extends AppCompatActivity
         {
             mRecipes.get(i).AddRecipeToRecipes((LinearLayout) findViewById(R.id.RecipeListHolder));
         }
+    }
+
+    public void Create(View view)
+    {
+        Intent intent = new Intent(this, CreateRecipe.class);
+        startActivity(intent);
     }
 }
