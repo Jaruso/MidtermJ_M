@@ -42,6 +42,9 @@ public class RecipeApp extends AppCompatActivity
         super.onCreate(savedInstanceState);
         InitPage0();
 
+        mRecipes.add(new Recipe(this));
+       // mRecipes.add(new Recipe(this));
+
         mUsers.add(new User("Master","Chief","pass","12345","admin"));
 
         temp = new User();
@@ -364,8 +367,6 @@ public class RecipeApp extends AppCompatActivity
     {
         setContentView(R.layout.recepies_page);
 
-        mRecipes.add(new Recipe(this));
-        mRecipes.add(new Recipe(this));
 
         final int N = mRecipes.size(); // total number of textviews to add
 
@@ -378,7 +379,11 @@ public class RecipeApp extends AppCompatActivity
     public void Create(View view)
     {
         Intent intent = new Intent(this, CreateRecipe.class);
+        
         startActivity(intent);
+
+        InitPage2();
+
     }
 
     public void SetCurrentRecipe(int toSet)
@@ -393,6 +398,6 @@ public class RecipeApp extends AppCompatActivity
 
     public void BackToRecipes(View view)
     {
-        setContentView(R.layout.recepies_page);
+        InitPage2();
     }
 }

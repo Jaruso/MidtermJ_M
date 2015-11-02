@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -22,7 +23,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 
-public class CreateRecipe extends AppCompatActivity {
+public class CreateRecipe extends RecipeApp{
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
     int n = 1;
@@ -70,6 +71,34 @@ public class CreateRecipe extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void Create(View view){
+
+        final EditText titleField = (EditText) findViewById(R.id.editTitle);
+        final EditText ingredField = (EditText) findViewById(R.id.editIngredients);
+        final EditText prepField = (EditText) findViewById(R.id.editPrep);
+        final EditText cookField = (EditText) findViewById(R.id.editCook);
+        final EditText instrField = (EditText) findViewById(R.id.editInstr);
+        final EditText servesField = (EditText) findViewById(R.id.editServe);
+
+        String mTitle = titleField.getText().toString();
+        String mIngredients = ingredField.getText().toString();
+        String mPrepTime = prepField.getText().toString();
+        String mCookTime  = cookField.getText().toString();
+        String mInstructions  = instrField.getText().toString();
+        String mServes  =  servesField.getText().toString();
+        String mPath = "";    // path to image
+
+
+        Recipe recipe = new Recipe(this);
+
+        recipe.SetFields(mTitle, mIngredients, mPrepTime, mCookTime, mInstructions, mServes, mPath);
+
+        mRecipes.add(recipe);
+
+        finish();
     }
 
 

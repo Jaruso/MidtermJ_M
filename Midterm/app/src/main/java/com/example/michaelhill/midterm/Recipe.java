@@ -17,10 +17,10 @@ public class Recipe
 
     String mTitle;
     String mIngredients;
-    private int mPrepTime;
-    private int mCookTime;
+    private String mPrepTime;
+    private String mCookTime;
     private String mInstructions;
-    int mServes;    // # of people
+    String mServes;    // # of people
     private String mPath;    // path to image
     private boolean mIsLiked;
 
@@ -30,18 +30,18 @@ public class Recipe
     {
         mActivity = activity;
 
-        mPrepTime = -1;
-        mCookTime = -1;
+        mPrepTime = "-1";
+        mCookTime = "-1";
         mInstructions = "VOID";
         mIngredients = "VOID";
 
         mIsLiked = false;
 
-        mServes = -1;
+        mServes = "-1";
         mMyIndex = 0;
     }
 
-    public void SetFields(int prepTime, int cookTime, String instructions, String ingredients, int serves)
+    public void SetFields(String prepTime, String cookTime, String instructions, String ingredients, String serves)
     {
         mPrepTime = prepTime;
         mCookTime = cookTime;
@@ -50,7 +50,7 @@ public class Recipe
         mServes = serves;
     }
 
-    public void SetFields(int prepTime, int cookTime, String instructions, String ingredients, int serves, String title, String path)
+    public void SetFields(String prepTime, String cookTime, String instructions, String ingredients, String serves, String title, String path)
     {
         mPrepTime = prepTime;
         mCookTime = cookTime;
@@ -71,8 +71,8 @@ public class Recipe
         mIsLiked = !mIsLiked;
     }
 
-    public int GetPrepTime() { return mPrepTime; }
-    public int GetCookTime()
+    public String GetPrepTime() { return mPrepTime; }
+    public String GetCookTime()
     {
         return mCookTime;
     }
